@@ -1,0 +1,1167 @@
+{
+  "projects": [
+    {
+      "id": "velano-transport",
+      "title": "Velano Transport",
+      "category": "Web Development",
+      "summary": "Corporate site for a transport and logistics operator, covering service pages, a quote enquiry flow and a mobile-first layout for drivers and dispatchers on the road.",
+      "stack": [],
+      "link": "https://velanotransport.com/",
+      "featured": true,
+      "privateDemo": false,
+      "order": 0
+    },
+    {
+      "id": "getgo-sri-lanka",
+      "title": "GetGo Sri Lanka",
+      "category": "Web Development",
+      "summary": "Travel and tour booking site for a Sri Lankan operator, with itinerary listings, destination pages and enquiry capture aimed at international visitors.",
+      "stack": [],
+      "link": "https://getgosrilanka.com/",
+      "featured": true,
+      "privateDemo": false,
+      "order": 1
+    },
+    {
+      "id": "afi-usa",
+      "title": "AFI USA",
+      "category": "Laravel",
+      "summary": "Full business platform built on Laravel with a Vue.js front-end, featuring dynamic content management, a structured service catalogue and admin-driven pages.",
+      "stack": [
+        "Laravel",
+        "Vue.js",
+        "MySQL",
+        "PHP"
+      ],
+      "link": "https://afi-usa.com/",
+      "featured": true,
+      "privateDemo": false,
+      "order": 2
+    },
+    {
+      "id": "guardian-call",
+      "title": "Guardian Call",
+      "category": "MERN Stack",
+      "summary": "Multi-tenant SaaS platform for organisations, with role-based accounts, call and incident workflows, and an operations dashboard built end to end on the MERN stack.",
+      "stack": [
+        "MongoDB",
+        "Express",
+        "React",
+        "Node.js"
+      ],
+      "link": "https://guardiancall.hiteclogs.com",
+      "featured": true,
+      "privateDemo": true,
+      "order": 3
+    },
+    {
+      "id": "fragrance-u",
+      "title": "Fragrance U",
+      "category": "Laravel",
+      "summary": "E-commerce storefront for a fragrance retailer, pairing a Laravel API with a React front-end for the product catalogue, cart and checkout.",
+      "stack": [
+        "Laravel",
+        "React.js",
+        "MySQL",
+        "PHP"
+      ],
+      "link": "https://FragranceU.com/",
+      "featured": true,
+      "privateDemo": false,
+      "order": 4
+    },
+    {
+      "id": "musclewiki",
+      "title": "MuscleWiki",
+      "category": "MERN Stack",
+      "summary": "High-traffic fitness reference platform with a searchable exercise library, filtered by muscle group and equipment, serving a large public audience.",
+      "stack": [
+        "MongoDB",
+        "Express",
+        "React",
+        "Node.js"
+      ],
+      "link": "https://musclewiki.com/",
+      "featured": true,
+      "privateDemo": false,
+      "order": 5
+    },
+    {
+      "id": "shypn",
+      "title": "Shypn",
+      "category": "MERN Stack",
+      "summary": "Shipping and logistics web application covering order handling, tracking views and account management on a MERN architecture.",
+      "stack": [
+        "MongoDB",
+        "Express",
+        "React",
+        "Node.js"
+      ],
+      "link": "https://shypn.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 6
+    },
+    {
+      "id": "sweply-admin-panel",
+      "title": "Sweply Admin Panel",
+      "category": "MERN Stack",
+      "summary": "Internal administration console for user and role management, operational records and reporting views on the Sweply platform.",
+      "stack": [
+        "MongoDB",
+        "Express",
+        "React",
+        "Node.js"
+      ],
+      "link": "https://admin.dev.sweply.com/heroes/login",
+      "featured": false,
+      "privateDemo": true,
+      "order": 7
+    },
+    {
+      "id": "tree-art",
+      "title": "Tree Art",
+      "category": "Next.js",
+      "summary": "Server-rendered marketing and product site for a digital art brand, built on Next.js with React for fast first paint and strong SEO.",
+      "stack": [
+        "Next.js",
+        "React.js",
+        "Node.js"
+      ],
+      "link": "https://tree.art/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 8
+    },
+    {
+      "id": "qtap-dashboard",
+      "title": "QTAP Dashboard",
+      "category": "Next.js",
+      "summary": "Operations dashboard for a Qatar-based platform, with authenticated multi-role access, data tables and management screens built on Next.js.",
+      "stack": [
+        "Next.js",
+        "React",
+        "Node.js"
+      ],
+      "link": "https://dashboard.qtap.qa/login",
+      "featured": true,
+      "privateDemo": true,
+      "order": 9
+    },
+    {
+      "id": "kronaxys",
+      "title": "Kronaxys",
+      "category": "Next.js",
+      "summary": "Next.js web application with authenticated user areas and a management back-end.",
+      "stack": [
+        "Next.js",
+        "React",
+        "Node.js"
+      ],
+      "link": "https://kronaxys.com/",
+      "featured": false,
+      "privateDemo": true,
+      "order": 10
+    },
+    {
+      "id": "ez-signature",
+      "title": "EZ Signature",
+      "category": "Next.js",
+      "summary": "E-signature product covering document upload, signature placement, the signing workflow and subscription handling.",
+      "stack": [
+        "Next.js",
+        "React",
+        "Node.js",
+        "MongoDB"
+      ],
+      "link": "http://ezsignature.org/",
+      "featured": true,
+      "privateDemo": true,
+      "order": 11
+    },
+    {
+      "id": "scalelogix-crm",
+      "title": "ScaleLogix CRM",
+      "category": "Python & React",
+      "summary": "Customer relationship platform pairing a Python back-end with a React front-end for pipeline management, contact records and reporting views.",
+      "stack": [
+        "Python",
+        "React",
+        "REST API"
+      ],
+      "link": "https://scalelogix.byteadvisory.com/",
+      "featured": false,
+      "privateDemo": true,
+      "order": 12
+    },
+    {
+      "id": "fynite-ai",
+      "title": "Fynite AI",
+      "category": "AI & Automation",
+      "summary": "AI-driven product work, layering model integration and automation into an existing application workflow.",
+      "stack": [
+        "AI / LLM",
+        "Python"
+      ],
+      "link": "",
+      "featured": false,
+      "privateDemo": false,
+      "order": 13
+    },
+    {
+      "id": "musclewiki-macro",
+      "title": "MuscleWiki Macro",
+      "category": "Mobile Apps",
+      "summary": "Macro and nutrition tracking companion app for MuscleWiki, published on Google Play.",
+      "stack": [
+        "React Native",
+        "Node.js"
+      ],
+      "link": "https://play.google.com/store/apps/details?id=com.musclewiki.macro",
+      "featured": true,
+      "privateDemo": false,
+      "order": 14
+    },
+    {
+      "id": "how-to-draw-tree-easily",
+      "title": "How To Draw Tree Easily",
+      "category": "Mobile Apps",
+      "summary": "Step-by-step drawing tutorial app with guided lessons, shipped to Google Play.",
+      "stack": [
+        "React Native"
+      ],
+      "link": "https://play.google.com/store/apps/details?id=com.howtodraw.treeeasily",
+      "featured": false,
+      "privateDemo": false,
+      "order": 15
+    },
+    {
+      "id": "doodh-walay",
+      "title": "Doodh Walay",
+      "category": "Mobile Apps",
+      "summary": "Dairy delivery app covering subscriptions, recurring orders and delivery scheduling. Live on the App Store.",
+      "stack": [
+        "React Native",
+        "Node.js"
+      ],
+      "link": "https://apps.apple.com/us/app/doodh-walay/id6761281124",
+      "featured": false,
+      "privateDemo": false,
+      "order": 16
+    },
+    {
+      "id": "utaren",
+      "title": "Utaren",
+      "category": "Mobile Apps",
+      "summary": "Consumer iOS app published for the Japanese App Store market.",
+      "stack": [
+        "React Native"
+      ],
+      "link": "https://apps.apple.com/jp/app/utaren/id6476108576",
+      "featured": false,
+      "privateDemo": false,
+      "order": 17
+    },
+    {
+      "id": "yakka",
+      "title": "Yakka",
+      "category": "Mobile Apps",
+      "summary": "iOS application published on the App Store.",
+      "stack": [
+        "iOS",
+        "React Native"
+      ],
+      "link": "https://apps.apple.com/by/app/yakka/id6448456575",
+      "featured": false,
+      "privateDemo": false,
+      "order": 18
+    },
+    {
+      "id": "tracely",
+      "title": "Tracely",
+      "category": "Mobile Apps",
+      "summary": "Tracking-focused iOS application published on the App Store.",
+      "stack": [
+        "iOS",
+        "React Native"
+      ],
+      "link": "https://apps.apple.com/pk/app/tracely/id1644143293",
+      "featured": false,
+      "privateDemo": false,
+      "order": 19
+    },
+    {
+      "id": "circularity-finance",
+      "title": "Circularity Finance",
+      "category": "Blockchain",
+      "summary": "Multi-chain DeFi platform spanning XDC, Avalanche and Ethereum, with NFT tokens, DAO genesis, XDC/USDT handling and Trust Wallet integration.",
+      "stack": [
+        "XDC",
+        "Avalanche",
+        "Ethereum",
+        "Solidity",
+        "Web3",
+        "NFT"
+      ],
+      "link": "https://www.circularity.finance/",
+      "featured": true,
+      "privateDemo": false,
+      "order": 20
+    },
+    {
+      "id": "wco-fans",
+      "title": "WCO Fans",
+      "category": "Blockchain",
+      "summary": "NFT marketplace covering buying, selling and collections, with auction-based bidding and multi-chain support.",
+      "stack": [
+        "Web3",
+        "Solidity",
+        "React",
+        "NFT"
+      ],
+      "link": "https://wcofans.com/",
+      "featured": true,
+      "privateDemo": false,
+      "order": 21
+    },
+    {
+      "id": "hburn-game-platform",
+      "title": "HBurn Game Platform",
+      "category": "Blockchain",
+      "summary": "DAO-governed gaming platform with an integrated credit card purchase system alongside on-chain assets.",
+      "stack": [
+        "Web3",
+        "Solidity",
+        "React",
+        "DAO"
+      ],
+      "link": "https://dev.hburn.co/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 22
+    },
+    {
+      "id": "hederagon",
+      "title": "Hederagon",
+      "category": "Blockchain",
+      "summary": "Web-based blockchain game project built on the Hedera ecosystem.",
+      "stack": [
+        "Hedera",
+        "Web3",
+        "JavaScript"
+      ],
+      "link": "https://hederagon.hburn.co/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 23
+    },
+    {
+      "id": "learn2earn",
+      "title": "Learn2Earn",
+      "category": "Blockchain",
+      "summary": "Learn-to-earn course platform covering course creation, selling and on-chain reward mechanics.",
+      "stack": [
+        "Web3",
+        "Solidity",
+        "React"
+      ],
+      "link": "",
+      "featured": false,
+      "privateDemo": false,
+      "order": 24
+    },
+    {
+      "id": "mathis-biabiany",
+      "title": "Mathis Biabiany",
+      "category": "Web Development",
+      "summary": "Bespoke personal site with a custom interactive front-end, built to a one-off design rather than a template.",
+      "stack": [
+        "JavaScript",
+        "CSS Animation"
+      ],
+      "link": "https://mathis-biabiany.fr/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 25
+    },
+    {
+      "id": "seasaltimmigration",
+      "title": "Seasaltimmigration",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://seasaltimmigration.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 26
+    },
+    {
+      "id": "akkejewellery",
+      "title": "Akkejewellery",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://akkejewellery.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 27
+    },
+    {
+      "id": "seoul-sauce",
+      "title": "Seoul Sauce",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://seoulsauce.co/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 28
+    },
+    {
+      "id": "lakeshoreestimating",
+      "title": "Lakeshoreestimating",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://lakeshoreestimating.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 29
+    },
+    {
+      "id": "entrustedhealthcare",
+      "title": "Entrustedhealthcare",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://entrustedhealthcare.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 30
+    },
+    {
+      "id": "precisionimprints",
+      "title": "Precisionimprints",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://precisionimprints.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 31
+    },
+    {
+      "id": "janda-real-estate",
+      "title": "Janda Real Estate",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://jandarealestate.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 32
+    },
+    {
+      "id": "mexican-mobile-car-wash",
+      "title": "Mexican Mobile Car Wash",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://mexicanmobilecarwash.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 33
+    },
+    {
+      "id": "christiansonhealthbrokers",
+      "title": "Christiansonhealthbrokers",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://christiansonhealthbrokers.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 34
+    },
+    {
+      "id": "elite-equipment-auto-repair",
+      "title": "Elite Equipment & Auto Repair",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://eltiteequipmentandautorepair.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 35
+    },
+    {
+      "id": "foammagik",
+      "title": "Foammagik",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://foammagik.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 36
+    },
+    {
+      "id": "bigfoot",
+      "title": "Bigfoot",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://bigfoot.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 37
+    },
+    {
+      "id": "imperiuns-construction",
+      "title": "Imperiuns Construction",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://imperiunsconstruction.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 38
+    },
+    {
+      "id": "indiana-luxury-cleaning-services",
+      "title": "Indiana Luxury Cleaning Services",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://indianaluxurycleaningservices.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 39
+    },
+    {
+      "id": "gpops-pics",
+      "title": "GPops Pics",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://gpopspics.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 40
+    },
+    {
+      "id": "trophy-printing",
+      "title": "Trophy & Printing",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://trophy-and-printing.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 41
+    },
+    {
+      "id": "cunningham-cover-park",
+      "title": "Cunningham Cover Park",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://cunninghamcovervpark.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 42
+    },
+    {
+      "id": "rob-personal-brand-site",
+      "title": "Rob: Personal Brand Site",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://rob.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 43
+    },
+    {
+      "id": "ozeanrealty",
+      "title": "Ozeanrealty",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://ozeanrealty.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 44
+    },
+    {
+      "id": "dav-business-site",
+      "title": "DAV Business Site",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://dav.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 45
+    },
+    {
+      "id": "outdoor-sleeping",
+      "title": "Outdoor Sleeping",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://outdoor-sleeping.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 46
+    },
+    {
+      "id": "taxi-catrachito",
+      "title": "Taxi Catrachito",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://taxicatrachito.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 47
+    },
+    {
+      "id": "tripplet-box",
+      "title": "Tripplet Box",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://trippletbox.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 48
+    },
+    {
+      "id": "cndea",
+      "title": "CNDEA",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://cndea.ca/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 49
+    },
+    {
+      "id": "serene-serenity",
+      "title": "Serene Serenity",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://sereneserenity.org/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 50
+    },
+    {
+      "id": "antwuanrealestate",
+      "title": "Antwuanrealestate",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://antwuanrealestate.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 51
+    },
+    {
+      "id": "topnotchpainting",
+      "title": "Topnotchpainting",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://topnotchpainting.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 52
+    },
+    {
+      "id": "highpointsoftwash",
+      "title": "Highpointsoftwash",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://highpointsoftwash.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 53
+    },
+    {
+      "id": "lydia-taxes-4-less",
+      "title": "Lydia Taxes 4 Less",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://lydiataxes4less.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 54
+    },
+    {
+      "id": "realtor-christine-chavis",
+      "title": "Realtor Christine Chavis",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://realtorchristinechavis.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 55
+    },
+    {
+      "id": "top-notch-painting-info",
+      "title": "Top Notch Painting (Info)",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://topnotchpainting.info/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 56
+    },
+    {
+      "id": "dhopta",
+      "title": "Dhopta",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://dhopta.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 57
+    },
+    {
+      "id": "panda-ice",
+      "title": "Panda Ice",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://pandaice.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 58
+    },
+    {
+      "id": "adaptivetransportation",
+      "title": "Adaptivetransportation",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://adaptivetransportation.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 59
+    },
+    {
+      "id": "ev-regiment",
+      "title": "EV Regiment",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://evregiment.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 60
+    },
+    {
+      "id": "indiana-luxury-cleaning",
+      "title": "Indiana Luxury Cleaning",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://indianaluxurycleaning.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 61
+    },
+    {
+      "id": "thedesignlords",
+      "title": "Thedesignlords",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://thedesignlords.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 62
+    },
+    {
+      "id": "ads-in-car",
+      "title": "Ads In Car",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://adsincar.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 63
+    },
+    {
+      "id": "beauty-empire",
+      "title": "Beauty Empire",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://beauty-empire.net/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 64
+    },
+    {
+      "id": "angelica-atayde-almeda",
+      "title": "Angelica Atayde Almeda",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://angelicaataydealmeda.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 65
+    },
+    {
+      "id": "amber",
+      "title": "Amber",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://amber.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 66
+    },
+    {
+      "id": "chelseabuildanddesign",
+      "title": "Chelseabuildanddesign",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://chelseabuildanddesign.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 67
+    },
+    {
+      "id": "christinechavis",
+      "title": "Christinechavis",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://christinechavis.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 68
+    },
+    {
+      "id": "silachi",
+      "title": "Silachi",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://silachi.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 69
+    },
+    {
+      "id": "staffordshire",
+      "title": "Staffordshire",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://staffordshire.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 70
+    },
+    {
+      "id": "tastybites",
+      "title": "Tastybites",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://tastybites.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 71
+    },
+    {
+      "id": "theautospa",
+      "title": "Theautospa",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://theautospa.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 72
+    },
+    {
+      "id": "voces-cristianas-unidas",
+      "title": "Voces Cristianas Unidas",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://vocescristianasunidas.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 73
+    },
+    {
+      "id": "wild-safari",
+      "title": "Wild Safari",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://wild-safari.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 74
+    },
+    {
+      "id": "partyrental",
+      "title": "Partyrental",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://partyrental.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 75
+    },
+    {
+      "id": "crafteddreams",
+      "title": "Crafteddreams",
+      "category": "WordPress",
+      "summary": "Custom WordPress build with responsive design, on-page SEO and a client-editable content structure.",
+      "stack": [
+        "WordPress",
+        "PHP",
+        "Elementor"
+      ],
+      "link": "https://crafteddreams.fzhpsolutions.com/",
+      "featured": false,
+      "privateDemo": false,
+      "order": 76
+    },
+    {
+      "title": "Fast And Forward Courier System",
+      "category": "Web Development",
+      "summary": "Fast And Forward Courier Company is a Pakistan-based courier and logistics company offering document, parcel, fragile-item, and heavy-cargo delivery. It provides shipment tracking, same/next-day delivery, and business accounts with bulk uploads, analytics, scheduled pickups, and dedicated account management.",
+      "stack": [
+        "Next Js and Mongodb"
+      ],
+      "link": "https://fastandforwardservices.com/",
+      "featured": false,
+      "privateDemo": false,
+      "id": "fast-and-forward-courier-system",
+      "order": -1
+    }
+  ],
+  "updatedAt": "2026-08-03T21:20:44.855Z"
+}
