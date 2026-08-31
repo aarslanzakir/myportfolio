@@ -1,5 +1,6 @@
 import Contact from "@/components/Contact";
 import Engagement from "@/components/Engagement";
+import EstimatorSection from "@/components/EstimatorSection";
 import Faq from "@/components/Faq";
 import Hero from "@/components/Hero";
 import Process from "@/components/Process";
@@ -27,6 +28,7 @@ export default async function Home() {
       <Projects />
       <Skills />
       <Process />
+      <EstimatorSection />
       <Engagement />
       <WhyMe />
       <Faq />

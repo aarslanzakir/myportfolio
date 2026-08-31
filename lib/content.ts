@@ -71,92 +71,12 @@ export const buildStats = (projectCount: number) => [
 
 /* ------------------------------------------------------------------ */
 
-export type Service = {
-  title: string;
-  blurb: string;
-  bullets: string[];
-  /** Key into the ICONS map in components/Icon.tsx */
-  icon: string;
-  featured?: boolean;
-};
-
-export const services: Service[] = [
-  {
-    title: "Full-Stack Web Development",
-    blurb:
-      "Production web applications built on the MERN and MEAN stacks, with the architecture and test coverage to keep shipping after launch.",
-    bullets: [
-      "React & Next.js front-ends",
-      "Angular enterprise dashboards",
-      "Node.js / Express / NestJS APIs",
-      "REST & GraphQL design",
-    ],
-    icon: "code",
-    featured: true,
-  },
-  {
-    title: "AI Integration & Automation",
-    blurb:
-      "Put language models to work on the parts of your business that still run on copy-paste. Chatbots, document pipelines, and internal copilots.",
-    bullets: [
-      "Claude & OpenAI API integration",
-      "RAG over your own documents",
-      "Custom support chatbots",
-      "Workflow automation (n8n, Zapier)",
-    ],
-    icon: "sparkles",
-    featured: true,
-  },
-  {
-    title: "Mobile & Cross-Platform Apps",
-    blurb:
-      "One codebase, both stores. I've shipped React Native apps live on the App Store and Google Play, including submission and review.",
-    bullets: [
-      "React Native & Expo",
-      "iOS + Android from one codebase",
-      "Offline-first data sync",
-      "App Store & Play submission",
-    ],
-    icon: "phone",
-    featured: true,
-  },
-  {
-    title: "Laravel & WordPress Websites",
-    blurb:
-      "Business sites and PHP platforms that your own team can edit, from custom Laravel applications to conversion-focused WordPress builds.",
-    bullets: [
-      "Laravel with Vue or React",
-      "Custom WordPress themes",
-      "On-page SEO & Core Web Vitals",
-      "Client-editable content",
-    ],
-    icon: "layers",
-  },
-  {
-    title: "Blockchain & Web3",
-    blurb:
-      "Multi-chain products built and shipped: DeFi platforms, NFT marketplaces, DAO governance and wallet integrations.",
-    bullets: [
-      "Ethereum, Avalanche, XDC & Hedera",
-      "NFT minting & auction systems",
-      "DAO and tokenomics logic",
-      "Trust Wallet & MetaMask flows",
-    ],
-    icon: "plug",
-  },
-  {
-    title: "Python, APIs & Cloud",
-    blurb:
-      "The unglamorous layer that decides whether your product survives real traffic, plus the integrations that tie your systems together.",
-    bullets: [
-      "Django, FastAPI & Flask",
-      "Stripe, Square & CRM integrations",
-      "AWS, Docker & CI/CD",
-      "Retainer-based maintenance",
-    ],
-    icon: "server",
-  },
-];
+/**
+ * Services carry a whole landing page each now, so they live in their
+ * own module. Re-exported here to keep this the one import site for
+ * page content.
+ */
+export { services, serviceBySlug, type Service } from "./services";
 
 /* ------------------------------------------------------------------ */
 
@@ -327,13 +247,20 @@ export const reasons = [
 
 /* ------------------------------------------------------------------ */
 
+/**
+ * `href` is root-relative so these still work from /services/*, where a
+ * bare "#work" would just be a fragment of the wrong page. `section` is
+ * the element id the nav's scroll-spy observes, and is only present for
+ * links that point at a section of the home page.
+ */
 export const navLinks = [
-  { label: "Services", href: "#services" },
-  { label: "Work", href: "#work" },
-  { label: "Skills", href: "#skills" },
-  { label: "Process", href: "#process" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "Contact", href: "#contact" },
+  { label: "Services", href: "/services", section: "services" },
+  { label: "Work", href: "/#work", section: "work" },
+  { label: "Skills", href: "/#skills", section: "skills" },
+  { label: "Process", href: "/#process", section: "process" },
+  { label: "Estimate", href: "/#estimate", section: "estimate" },
+  { label: "Pricing", href: "/#pricing", section: "pricing" },
+  { label: "Contact", href: "/#contact", section: "contact" },
 ];
 
 /* ------------------------------------------------------------------ */

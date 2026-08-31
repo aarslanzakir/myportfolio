@@ -1,7 +1,10 @@
+import Link from "next/link";
 import Icon from "./Icon";
 import Reveal from "./Reveal";
+import Spotlight from "./Spotlight";
 import { Section, SectionHeading } from "./ui";
 import { services } from "@/lib/content";
+import { servicePath } from "@/lib/seo";
 
 export default function Services() {
   return (
@@ -15,7 +18,7 @@ export default function Services() {
         align="left"
       />
 
-      <ul className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <Spotlight as="ul" className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {services.map((service, i) => (
           <Reveal
             as="li"
@@ -27,7 +30,7 @@ export default function Services() {
               {service.featured && <span className="ring-gradient-inner" />}
 
               <div
-                className={`relative flex h-full flex-col rounded-3xl p-6 transition-all duration-300 sm:p-7 ${
+                className={`spotlight-target relative flex h-full flex-col rounded-3xl p-6 transition-all duration-300 sm:p-7 ${
                   service.featured
                     ? "bg-gradient-to-b from-white/[0.07] to-white/[0.02]"
                     : "border border-white/[0.07] bg-white/[0.025] hover:border-white/[0.14]"
@@ -65,11 +68,25 @@ export default function Services() {
                     </li>
                   ))}
                 </ul>
+
+                {/* The home page's link into each service page: this is
+                    how crawlers reach them and how a visitor gets to the
+                    detail without going back to the nav. */}
+                <Link
+                  href={servicePath(service.slug)}
+                  className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-medium text-accent-300 transition-colors hover:text-accent-200"
+                >
+                  More on {service.title.toLowerCase()}
+                  <Icon
+                    name="arrow"
+                    className="size-4 transition-transform duration-300 group-hover:translate-x-1"
+                  />
+                </Link>
               </div>
             </article>
           </Reveal>
         ))}
-      </ul>
+      </Spotlight>
     </Section>
   );
 }

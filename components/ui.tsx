@@ -30,7 +30,7 @@ export function PrimaryButton({
     <Link
       href={href}
       {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      className={`${base} bg-gradient-to-r from-accent-300 via-accent-400 to-ember-400 text-ink-950
+      className={`${base} sheen bg-gradient-to-r from-accent-300 via-accent-400 to-ember-400 text-ink-950
         shadow-[0_10px_36px_-10px_rgba(240,180,41,0.45)]
         hover:shadow-[0_14px_44px_-8px_rgba(232,129,74,0.55)] hover:brightness-110 ${className}`}
     >

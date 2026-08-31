@@ -30,64 +30,39 @@ const fieldClass =
 const labelClass = "mb-2 block text-xs font-medium tracking-wide text-mist-400 uppercase";
 
 /**
- * No back-end required: the form composes a pre-filled message and
- * hands it to the visitor's mail client or WhatsApp. If you later add
- * an API route (Resend, Formspree, etc.), swap `buildBody` into a fetch.
+ * No back-end required: the form composes a pre-filled message and hands
+ * it to WhatsApp. If you later add an API route (Resend, SMTP, etc.),
+ * swap `buildBody` into a fetch and bring back an email button.
  */
 export default function ContactForm() {
-  const [sent, setSent] = useState<"mail" | "whatsapp" | null>(null);
+  const [sent, setSent] = useState(false);
 
-  const buildFields = (form: HTMLFormElement) => {
-    const data = new FormData(form);
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const data = new FormData(e.currentTarget);
     const get = (k: string) => String(data.get(k) ?? "").trim();
-    return {
-      name: get("name"),
-      email: get("email"),
-      company: get("company"),
-      type: get("type"),
-      budget: get("budget"),
-      message: get("message"),
-    };
-  };
+    const company = get("company");
 
-  const buildBody = (f: ReturnType<typeof buildFields>) =>
-    [
-      `Name: ${f.name}`,
-      `Email: ${f.email}`,
-      f.company && `Company: ${f.company}`,
-      `Project type: ${f.type}`,
-      `Budget: ${f.budget}`,
+    const body = [
+      `Name: ${get("name")}`,
+      `Email: ${get("email")}`,
+      company && `Company: ${company}`,
+      `Project type: ${get("type")}`,
+      `Budget: ${get("budget")}`,
       "",
       "Details:",
-      f.message,
+      get("message"),
     ]
       .filter(Boolean)
       .join("\n");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const f = buildFields(e.currentTarget);
-    const subject = `Project enquiry: ${f.type || "General"}${f.name ? ` (${f.name})` : ""}`;
-    window.location.href = `mailto:${profile.email}?subject=${encodeURIComponent(
-      subject,
-    )}&body=${encodeURIComponent(buildBody(f))}`;
-    setSent("mail");
-  };
-
-  const handleWhatsapp = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const form = e.currentTarget.form;
-    if (!form) return;
-
-    // Require the same fields the mail path does before switching channel
-    if (!form.reportValidity()) return;
-
-    const f = buildFields(form);
     window.open(
-      `https://wa.me/${profile.whatsapp}?text=${encodeURIComponent(buildBody(f))}`,
+      `https://wa.me/${profile.whatsapp}?text=${encodeURIComponent(body)}`,
       "_blank",
       "noopener,noreferrer",
     );
-    setSent("whatsapp");
+    setSent(true);
   };
 
   return (
@@ -182,30 +157,20 @@ export default function ContactForm() {
         </div>
       </div>
 
-      <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+      <div className="mt-6">
         <button
           type="submit"
-          className="group inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-accent-300 via-accent-400 to-ember-400 px-6 py-3.5 text-sm font-medium text-ink-950 shadow-[0_10px_36px_-10px_rgba(240,180,41,0.45)] transition-all duration-300 hover:brightness-110 active:scale-[0.98]"
+          className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-accent-300 via-accent-400 to-ember-400 px-6 py-3.5 text-sm font-medium text-ink-950 shadow-[0_10px_36px_-10px_rgba(240,180,41,0.45)] transition-all duration-300 hover:brightness-110 active:scale-[0.98]"
         >
-          <Icon name="mail" className="size-4" />
-          Send by email
-        </button>
-
-        <button
-          type="button"
-          onClick={handleWhatsapp}
-          className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-white/[0.12] bg-white/[0.04] px-6 py-3.5 text-sm font-medium text-mist-200 transition-all duration-300 hover:border-emerald-400/40 hover:text-white active:scale-[0.98]"
-        >
-          <Icon name="whatsapp" className="size-4 text-emerald-400" />
+          <Icon name="whatsapp" className="size-4" />
           Send on WhatsApp
         </button>
       </div>
 
       <p aria-live="polite" className="mt-4 min-h-5 text-center text-xs text-mist-500">
-        {sent === "mail" &&
-          "Your mail app should now be open with the message ready. Just hit send."}
-        {sent === "whatsapp" && "WhatsApp opened in a new tab with your message ready."}
-        {!sent && "Both options open with your details pre-filled. Nothing is stored here."}
+        {sent
+          ? "WhatsApp opened in a new tab with your message ready. Just hit send."
+          : `Opens WhatsApp with your details pre-filled. Prefer email? Write to ${profile.email}.`}
       </p>
     </form>
   );

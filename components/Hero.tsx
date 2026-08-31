@@ -1,5 +1,6 @@
 import Image from "next/image";
 import heroPhoto from "@/public/mine.png";
+import CountUp from "./CountUp";
 import Icon from "./Icon";
 import Reveal from "./Reveal";
 import RotatingWord from "./RotatingWord";
@@ -121,7 +122,7 @@ export default async function Hero() {
                   {stat.label}
                 </dt>
                 <dd className="text-gradient order-1 font-display text-3xl font-bold sm:text-4xl">
-                  {stat.value}
+                  <CountUp value={stat.value} />
                 </dd>
               </div>
             </Reveal>

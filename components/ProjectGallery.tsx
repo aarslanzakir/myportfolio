@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Icon from "./Icon";
+import Spotlight from "./Spotlight";
 import type { Project } from "@/lib/project-schema";
 
 /** Multiple of 4 so the widest grid fills complete rows */
@@ -72,12 +73,12 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
       </div>
 
       {/* ---------- grid ---------- */}
-      <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <Spotlight as="ul" className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {visible.map((project) => {
           const clickable = Boolean(project.link) && !project.privateDemo;
 
           const body = (
-            <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.025] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-white/[0.16]">
+            <article className="spotlight-target group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.025] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-white/[0.16]">
               <span
                 aria-hidden="true"
                 className="pointer-events-none absolute -top-20 -right-20 size-44 rounded-full bg-accent-400/25 opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100"
@@ -151,7 +152,7 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
             </li>
           );
         })}
-      </ul>
+      </Spotlight>
 
       {remaining > 0 && (
         <div className="mt-8 flex justify-center">

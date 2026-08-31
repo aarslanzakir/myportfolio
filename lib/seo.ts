@@ -7,16 +7,34 @@
  */
 
 import { faqs, profile, services, skillGroups } from "./content";
+import type { Service } from "./services";
 import type { Project } from "./project-schema";
 
 /**
- * Set NEXT_PUBLIC_SITE_URL in your host's env. It must be the exact
- * origin Google will index (https, no trailing slash) or canonical
- * tags, the sitemap and social cards will all point at the wrong host.
+ * The origin Google will index. Every canonical tag, sitemap entry and
+ * schema @id is built from this, so pointing it at a domain that is not
+ * actually serving the site is the one setting that can stop the whole
+ * site being indexed: Google crawls where you are, reads a canonical
+ * saying "the real one is elsewhere", and indexes neither.
+ *
+ * Resolution order:
+ *   1. NEXT_PUBLIC_SITE_URL      your real domain, once you have one
+ *   2. VERCEL_PROJECT_PRODUCTION_URL   Vercel's stable production host,
+ *      injected automatically. Not VERCEL_URL, which is unique per
+ *      deployment and would make canonicals churn on every push.
+ *   3. localhost, so a local build never emits someone else's domain.
  */
-export const siteUrl = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://aliarslanzakir.com"
-).replace(/\/$/, "");
+function resolveSiteUrl(): string {
+  const explicit = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (explicit) return explicit.replace(/\/$/, "");
+
+  const vercelHost = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim();
+  if (vercelHost) return `https://${vercelHost.replace(/\/$/, "")}`;
+
+  return "http://localhost:3000";
+}
+
+export const siteUrl = resolveSiteUrl();
 
 export const jobTitle = "Full-Stack Developer & AI Automation Engineer";
 
@@ -157,3 +175,126 @@ export function buildJsonLd(projects: Project[]) {
  */
 export const serializeJsonLd = (data: unknown) =>
   JSON.stringify(data).replace(/</g, "\u003c");
+
+/* ------------------------------------------------------------------ */
+/*  Service landing pages                                              */
+/* ------------------------------------------------------------------ */
+
+export const servicePath = (slug: string) => `/services/${slug}`;
+
+/**
+ * Per-service graph. The Service node points back at the same Person
+ * @id the home page declares, so Google reads one provider with six
+ * offerings rather than six unrelated businesses.
+ */
+export function buildServiceJsonLd(service: Service, related: Project[]) {
+  const url = abs(servicePath(service.slug));
+  const pageId = `${url}#webpage`;
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "@id": `${url}#service`,
+        name: service.title,
+        serviceType: service.metaTitle,
+        description: service.metaDescription,
+        url,
+        provider: { "@id": ID.person },
+        areaServed: { "@type": "Place", name: "Worldwide" },
+        ...(related.length > 0 && {
+          hasOfferCatalog: {
+            "@type": "OfferCatalog",
+            name: `${service.title} work`,
+            itemListElement: related.map((project) => ({
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "CreativeWork",
+                name: project.title,
+                ...(project.summary && { description: project.summary }),
+                ...(project.link &&
+                  !project.privateDemo && { url: project.link }),
+              },
+            })),
+          },
+        }),
+      },
+      {
+        "@type": "WebPage",
+        "@id": pageId,
+        url,
+        name: service.metaTitle,
+        description: service.metaDescription,
+        isPartOf: { "@id": ID.website },
+        about: { "@id": `${url}#service` },
+        inLanguage: "en",
+      },
+      /* Breadcrumbs give Google the "Home > Services > X" trail it shows
+         in place of a raw URL in the result. */
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${url}#breadcrumb`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Services",
+            item: abs("/services"),
+          },
+          { "@type": "ListItem", position: 3, name: service.title, item: url },
+        ],
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${url}#faq`,
+        isPartOf: { "@id": pageId },
+        mainEntity: service.faqs.map((faq) => ({
+          "@type": "Question",
+          name: faq.q,
+          acceptedAnswer: { "@type": "Answer", text: faq.a },
+        })),
+      },
+    ],
+  };
+}
+
+/** Index page listing every service. */
+export function buildServiceIndexJsonLd() {
+  const url = abs("/services");
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": `${url}#webpage`,
+        url,
+        name: `Services | ${profile.name}`,
+        isPartOf: { "@id": ID.website },
+        about: { "@id": ID.person },
+        inLanguage: "en",
+      },
+      {
+        "@type": "ItemList",
+        "@id": `${url}#list`,
+        numberOfItems: services.length,
+        itemListElement: services.map((service, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name: service.title,
+          url: abs(servicePath(service.slug)),
+        })),
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${url}#breadcrumb`,
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+          { "@type": "ListItem", position: 2, name: "Services", item: url },
+        ],
+      },
+    ],
+  };
+}

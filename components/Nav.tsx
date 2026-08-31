@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Icon from "./Icon";
+import ScrollProgress from "./ScrollProgress";
 import { navLinks, profile, whatsappUrl } from "@/lib/content";
 
 export default function Nav() {
@@ -20,9 +21,11 @@ export default function Nav() {
 
   /* Highlight the section currently on screen */
   useEffect(() => {
+    /* Match on the section id, not the href: hrefs are now paths like
+       "/#work", which are not valid CSS selectors. */
     const sections = navLinks
-      .map((l) => document.querySelector(l.href))
-      .filter((el): el is Element => el !== null);
+      .map((l) => document.getElementById(l.section))
+      .filter((el): el is HTMLElement => el !== null);
 
     if (!sections.length) return;
 
@@ -31,7 +34,7 @@ export default function Nav() {
         const visible = entries
           .filter((e) => e.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible?.target.id) setActive(`#${visible.target.id}`);
+        if (visible?.target.id) setActive(visible.target.id);
       },
       { rootMargin: "-45% 0px -50% 0px", threshold: [0, 0.25, 0.5] },
     );
@@ -70,6 +73,9 @@ export default function Nav() {
             : "border-b border-transparent"
         }`}
       >
+        {/* Always mounted: it sits at zero width until you scroll, which
+            is smoother than mounting it the moment you pass the threshold. */}
+        <ScrollProgress />
         <nav
           aria-label="Main"
           className="mx-auto flex h-16 w-full max-w-shell items-center justify-between gap-4 px-5 sm:h-18 sm:px-8 lg:px-12 xl:px-16"
@@ -92,12 +98,12 @@ export default function Nav() {
                 <Link
                   href={link.href}
                   className={`relative rounded-full px-4 py-2 text-sm transition-colors duration-200 ${
-                    active === link.href
+                    active === link.section
                       ? "text-mist-50"
                       : "text-mist-400 hover:text-mist-50"
                   }`}
                 >
-                  {active === link.href && (
+                  {active === link.section && (
                     <span className="absolute inset-0 -z-10 rounded-full border border-white/10 bg-white/[0.06]" />
                   )}
                   {link.label}

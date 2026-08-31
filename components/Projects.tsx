@@ -1,4 +1,5 @@
 import Icon from "./Icon";
+import ProjectCover from "./ProjectCover";
 import ProjectGallery from "./ProjectGallery";
 import Reveal from "./Reveal";
 import { GhostButton, Section, SectionHeading } from "./ui";
@@ -14,7 +15,17 @@ function SpotlightCard({ project }: { project: Project }) {
     <article className="group ring-gradient relative flex h-full flex-col overflow-hidden rounded-3xl">
       <span className="ring-gradient-inner" />
 
-      <div className="relative flex h-full flex-col bg-gradient-to-br from-white/[0.08] via-white/[0.03] to-transparent p-7 transition-transform duration-300 group-hover:-translate-y-1 sm:p-9">
+      {/* generated cover: abstract on purpose, never a fake screenshot */}
+      <div className="relative h-28 overflow-hidden sm:h-36">
+        <ProjectCover
+          id={project.id}
+          title={project.title}
+          className="size-full transition-transform duration-700 group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/40 to-transparent" />
+      </div>
+
+      <div className="relative -mt-6 flex h-full flex-col bg-gradient-to-br from-white/[0.08] via-white/[0.03] to-transparent p-7 transition-transform duration-300 group-hover:-translate-y-1 sm:p-9">
         <span
           aria-hidden="true"
           className="pointer-events-none absolute -top-28 -right-28 size-72 rounded-full bg-accent-400/25 opacity-60 blur-3xl transition-opacity duration-500 group-hover:opacity-100"
