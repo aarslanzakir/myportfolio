@@ -5,12 +5,23 @@ import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import Icon from "@/components/Icon";
 import { profile } from "@/lib/content";
+import type { Enquiry } from "@/lib/enquiries";
 import type { Project } from "@/lib/project-schema";
+import Enquiries from "./Enquiries";
 import ProjectForm, { emptyDraft, toDraft, type ProjectDraft } from "./ProjectForm";
 
-export default function Dashboard({ projects }: { projects: Project[] }) {
+export default function Dashboard({
+  projects,
+  enquiries,
+  durableEnquiries,
+}: {
+  projects: Project[];
+  enquiries: Enquiry[];
+  durableEnquiries: boolean;
+}) {
   const router = useRouter();
 
+  const [view, setView] = useState<"projects" | "enquiries">("projects");
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -50,6 +61,7 @@ export default function Dashboard({ projects }: { projects: Project[] }) {
   };
 
   const openNew = () => {
+    setView("projects");
     setEditingId(null);
     setDraft(emptyDraft);
     setSidebarOpen(false);
@@ -137,6 +149,7 @@ export default function Dashboard({ projects }: { projects: Project[] }) {
   };
 
   const featuredCount = projects.filter((p) => p.featured).length;
+  const unreadEnquiries = enquiries.filter((e) => !e.read).length;
   const initials = profile.name
     .split(" ")
     .map((w) => w[0])
@@ -157,6 +170,39 @@ export default function Dashboard({ projects }: { projects: Project[] }) {
           <p className="text-xs text-mist-500">Project manager</p>
         </div>
       </div>
+
+      {/* view switch */}
+      <nav aria-label="Sections" className="flex flex-col gap-0.5">
+        {([
+          { id: "projects", label: "Projects", icon: "layers", badge: 0 },
+          { id: "enquiries", label: "Enquiries", icon: "mail", badge: unreadEnquiries },
+        ] as const).map((item) => {
+          const active = view === item.id;
+          return (
+            <button
+              key={item.id}
+              onClick={() => {
+                setView(item.id);
+                setSidebarOpen(false);
+              }}
+              aria-current={active ? "page" : undefined}
+              className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-left text-sm transition-colors ${
+                active
+                  ? "bg-accent-400/15 text-mist-50"
+                  : "text-mist-400 hover:bg-white/[0.04] hover:text-mist-50"
+              }`}
+            >
+              <Icon name={item.icon} className="size-4" />
+              <span className="flex-1">{item.label}</span>
+              {item.badge > 0 && (
+                <span className="rounded-full bg-accent-300 px-1.5 py-0.5 text-[0.65rem] font-semibold text-ink-950">
+                  {item.badge}
+                </span>
+              )}
+            </button>
+          );
+        })}
+      </nav>
 
       <button
         onClick={openNew}
@@ -192,6 +238,7 @@ export default function Dashboard({ projects }: { projects: Project[] }) {
               <li key={c.name}>
                 <button
                   onClick={() => {
+                    setView("projects");
                     setCategory(c.name);
                     setSidebarOpen(false);
                   }}
@@ -263,173 +310,179 @@ export default function Dashboard({ projects }: { projects: Project[] }) {
 
       {/* ---------- main ---------- */}
       <main className="flex min-w-0 flex-1 flex-col">
-        {/* toolbar */}
-        <header className="sticky top-0 z-30 border-b border-white/[0.07] bg-ink-950/85 backdrop-blur-xl">
-          <div className="flex items-center gap-3 px-4 py-3 sm:px-6">
-            <button
-              onClick={() => setSidebarOpen(true)}
-              aria-label="Open menu"
-              className="grid size-10 shrink-0 place-items-center rounded-xl border border-white/[0.09] bg-white/[0.04] text-mist-200 lg:hidden"
-            >
-              <Icon name="menu" className="size-5" />
-            </button>
-
-            <label className="relative min-w-0 flex-1">
-              <span className="sr-only">Search projects</span>
-              <input
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search by name, stack or URL…"
-                className="w-full rounded-xl border border-white/[0.09] bg-ink-900/70 px-4 py-2.5 text-sm text-mist-50 placeholder:text-mist-500 focus:border-accent-300/60 focus:outline-none"
-              />
-            </label>
-
-            <button
-              onClick={openNew}
-              className="hidden shrink-0 items-center gap-2 rounded-xl bg-gradient-to-r from-accent-300 via-accent-400 to-ember-400 px-4 py-2.5 text-sm font-medium text-ink-950 hover:brightness-110 sm:inline-flex lg:hidden"
-            >
-              <Icon name="plus" className="size-4" />
-              New
-            </button>
-          </div>
-
-          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 px-4 pb-3 text-sm sm:px-6">
-            <h1 className="font-semibold text-mist-50">
-              {category === "All" ? "All projects" : category}
-            </h1>
-            <p className="text-xs text-mist-500">
-              {visible.length} shown
-              {query && ` · matching “${query}”`}
-            </p>
-          </div>
-        </header>
-
-        {notice && (
-          <p
-            role="status"
-            className="mx-4 mt-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-300 sm:mx-6"
-          >
-            {notice}
-          </p>
-        )}
-
-        {/* project list: full width, denser on very wide screens */}
-        <ul className="grid gap-3 p-4 sm:p-6 2xl:grid-cols-2">
-          {visible.map((project) => {
-            const globalIndex = projects.findIndex((p) => p.id === project.id);
-
-            return (
-              <li
-                key={project.id}
-                className={`rounded-2xl border border-white/[0.07] bg-white/[0.025] p-4 transition-opacity sm:p-5 ${
-                  busyId === project.id ? "opacity-50" : ""
-                }`}
+        {view === "enquiries" ? (
+          <Enquiries enquiries={enquiries} durable={durableEnquiries} />
+        ) : (
+          <>
+          {/* toolbar */}
+          <header className="sticky top-0 z-30 border-b border-white/[0.07] bg-ink-950/85 backdrop-blur-xl">
+            <div className="flex items-center gap-3 px-4 py-3 sm:px-6">
+              <button
+                onClick={() => setSidebarOpen(true)}
+                aria-label="Open menu"
+                className="grid size-10 shrink-0 place-items-center rounded-xl border border-white/[0.09] bg-white/[0.04] text-mist-200 lg:hidden"
               >
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                  <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="font-mono text-xs text-mist-500">
-                        {globalIndex + 1}
-                      </span>
-                      <h2 className="text-base font-medium text-mist-50">
-                        {project.title}
-                      </h2>
-                      {project.featured && (
-                        <span className="rounded-full border border-ember-400/40 bg-ember-400/10 px-2 py-0.5 text-[0.65rem] font-medium tracking-wide text-ember-400 uppercase">
-                          Featured
+                <Icon name="menu" className="size-5" />
+              </button>
+
+              <label className="relative min-w-0 flex-1">
+                <span className="sr-only">Search projects</span>
+                <input
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Search by name, stack or URL…"
+                  className="w-full rounded-xl border border-white/[0.09] bg-ink-900/70 px-4 py-2.5 text-sm text-mist-50 placeholder:text-mist-500 focus:border-accent-300/60 focus:outline-none"
+                />
+              </label>
+
+              <button
+                onClick={openNew}
+                className="hidden shrink-0 items-center gap-2 rounded-xl bg-gradient-to-r from-accent-300 via-accent-400 to-ember-400 px-4 py-2.5 text-sm font-medium text-ink-950 hover:brightness-110 sm:inline-flex lg:hidden"
+              >
+                <Icon name="plus" className="size-4" />
+                New
+              </button>
+            </div>
+
+            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 px-4 pb-3 text-sm sm:px-6">
+              <h1 className="font-semibold text-mist-50">
+                {category === "All" ? "All projects" : category}
+              </h1>
+              <p className="text-xs text-mist-500">
+                {visible.length} shown
+                {query && ` · matching “${query}”`}
+              </p>
+            </div>
+          </header>
+
+          {notice && (
+            <p
+              role="status"
+              className="mx-4 mt-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-300 sm:mx-6"
+            >
+              {notice}
+            </p>
+          )}
+
+          {/* project list: full width, denser on very wide screens */}
+          <ul className="grid gap-3 p-4 sm:p-6 2xl:grid-cols-2">
+            {visible.map((project) => {
+              const globalIndex = projects.findIndex((p) => p.id === project.id);
+
+              return (
+                <li
+                  key={project.id}
+                  className={`rounded-2xl border border-white/[0.07] bg-white/[0.025] p-4 transition-opacity sm:p-5 ${
+                    busyId === project.id ? "opacity-50" : ""
+                  }`}
+                >
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="font-mono text-xs text-mist-500">
+                          {globalIndex + 1}
                         </span>
+                        <h2 className="text-base font-medium text-mist-50">
+                          {project.title}
+                        </h2>
+                        {project.featured && (
+                          <span className="rounded-full border border-ember-400/40 bg-ember-400/10 px-2 py-0.5 text-[0.65rem] font-medium tracking-wide text-ember-400 uppercase">
+                            Featured
+                          </span>
+                        )}
+                        {project.privateDemo && (
+                          <span className="rounded-full border border-amber-500/40 bg-amber-500/10 px-2 py-0.5 text-[0.65rem] font-medium tracking-wide text-amber-300 uppercase">
+                            Private
+                          </span>
+                        )}
+                        {globalIndex < 2 && (
+                          <span className="rounded-full border border-accent-300/40 bg-accent-300/10 px-2 py-0.5 text-[0.65rem] font-medium tracking-wide text-accent-300 uppercase">
+                            Spotlight
+                          </span>
+                        )}
+                      </div>
+
+                      <p className="mt-1 text-xs text-mist-500">{project.category}</p>
+
+                      {project.summary && (
+                        <p className="mt-2 line-clamp-2 text-sm text-mist-400">
+                          {project.summary}
+                        </p>
                       )}
-                      {project.privateDemo && (
-                        <span className="rounded-full border border-amber-500/40 bg-amber-500/10 px-2 py-0.5 text-[0.65rem] font-medium tracking-wide text-amber-300 uppercase">
-                          Private
-                        </span>
-                      )}
-                      {globalIndex < 2 && (
-                        <span className="rounded-full border border-accent-300/40 bg-accent-300/10 px-2 py-0.5 text-[0.65rem] font-medium tracking-wide text-accent-300 uppercase">
-                          Spotlight
-                        </span>
-                      )}
+
+                      <div className="mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1.5">
+                        {project.link ? (
+                          <a
+                            href={project.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="truncate font-mono text-xs text-accent-300 hover:underline"
+                          >
+                            {project.link.replace(/^https?:\/\//, "")}
+                          </a>
+                        ) : (
+                          <span className="font-mono text-xs text-mist-500">no link</span>
+                        )}
+                        {project.stack.length > 0 && (
+                          <span className="truncate font-mono text-xs text-mist-500">
+                            {project.stack.join(" · ")}
+                          </span>
+                        )}
+                      </div>
                     </div>
 
-                    <p className="mt-1 text-xs text-mist-500">{project.category}</p>
-
-                    {project.summary && (
-                      <p className="mt-2 line-clamp-2 text-sm text-mist-400">
-                        {project.summary}
-                      </p>
-                    )}
-
-                    <div className="mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1.5">
-                      {project.link ? (
-                        <a
-                          href={project.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="truncate font-mono text-xs text-accent-300 hover:underline"
-                        >
-                          {project.link.replace(/^https?:\/\//, "")}
-                        </a>
-                      ) : (
-                        <span className="font-mono text-xs text-mist-500">no link</span>
-                      )}
-                      {project.stack.length > 0 && (
-                        <span className="truncate font-mono text-xs text-mist-500">
-                          {project.stack.join(" · ")}
-                        </span>
-                      )}
+                    {/* row actions */}
+                    <div className="flex shrink-0 items-center gap-1.5">
+                      <button
+                        onClick={() => move(project, "up")}
+                        disabled={globalIndex === 0 || busyId !== null}
+                        aria-label={`Move ${project.title} up`}
+                        className="grid size-9 place-items-center rounded-xl border border-white/[0.09] bg-white/[0.04] text-mist-400 hover:text-white disabled:opacity-30"
+                      >
+                        <Icon name="arrow" className="size-4 -rotate-90" />
+                      </button>
+                      <button
+                        onClick={() => move(project, "down")}
+                        disabled={globalIndex === projects.length - 1 || busyId !== null}
+                        aria-label={`Move ${project.title} down`}
+                        className="grid size-9 place-items-center rounded-xl border border-white/[0.09] bg-white/[0.04] text-mist-400 hover:text-white disabled:opacity-30"
+                      >
+                        <Icon name="arrow" className="size-4 rotate-90" />
+                      </button>
+                      <button
+                        onClick={() => openEdit(project)}
+                        className="rounded-xl border border-white/[0.09] bg-white/[0.04] px-3.5 py-2 text-sm text-mist-200 hover:text-white"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => remove(project)}
+                        aria-label={`Delete ${project.title}`}
+                        className="grid size-9 place-items-center rounded-xl border border-red-500/25 bg-red-500/10 text-red-300 hover:bg-red-500/20"
+                      >
+                        <Icon name="close" className="size-4" />
+                      </button>
                     </div>
                   </div>
+                </li>
+              );
+            })}
+          </ul>
 
-                  {/* row actions */}
-                  <div className="flex shrink-0 items-center gap-1.5">
-                    <button
-                      onClick={() => move(project, "up")}
-                      disabled={globalIndex === 0 || busyId !== null}
-                      aria-label={`Move ${project.title} up`}
-                      className="grid size-9 place-items-center rounded-xl border border-white/[0.09] bg-white/[0.04] text-mist-400 hover:text-white disabled:opacity-30"
-                    >
-                      <Icon name="arrow" className="size-4 -rotate-90" />
-                    </button>
-                    <button
-                      onClick={() => move(project, "down")}
-                      disabled={globalIndex === projects.length - 1 || busyId !== null}
-                      aria-label={`Move ${project.title} down`}
-                      className="grid size-9 place-items-center rounded-xl border border-white/[0.09] bg-white/[0.04] text-mist-400 hover:text-white disabled:opacity-30"
-                    >
-                      <Icon name="arrow" className="size-4 rotate-90" />
-                    </button>
-                    <button
-                      onClick={() => openEdit(project)}
-                      className="rounded-xl border border-white/[0.09] bg-white/[0.04] px-3.5 py-2 text-sm text-mist-200 hover:text-white"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => remove(project)}
-                      aria-label={`Delete ${project.title}`}
-                      className="grid size-9 place-items-center rounded-xl border border-red-500/25 bg-red-500/10 text-red-300 hover:bg-red-500/20"
-                    >
-                      <Icon name="close" className="size-4" />
-                    </button>
-                  </div>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+          {visible.length === 0 && (
+            <p className="mx-4 rounded-2xl border border-white/[0.07] bg-white/[0.02] py-12 text-center text-sm text-mist-400 sm:mx-6">
+              No projects match that filter.
+            </p>
+          )}
 
-        {visible.length === 0 && (
-          <p className="mx-4 rounded-2xl border border-white/[0.07] bg-white/[0.02] py-12 text-center text-sm text-mist-400 sm:mx-6">
-            No projects match that filter.
+          <p className="mt-auto px-6 py-8 text-center text-xs leading-relaxed text-mist-500">
+            The first two projects get the large spotlight cards on the public site.
+            Use ↑ / ↓ to choose them. Data lives in{" "}
+            <code className="text-mist-400">data/content.json</code>; never save client
+            passwords into a project record.
           </p>
+          </>
         )}
-
-        <p className="mt-auto px-6 py-8 text-center text-xs leading-relaxed text-mist-500">
-          The first two projects get the large spotlight cards on the public site.
-          Use ↑ / ↓ to choose them. Data lives in{" "}
-          <code className="text-mist-400">data/content.json</code>; never save client
-          passwords into a project record.
-        </p>
       </main>
 
       {/* ---------- edit / create modal ---------- */}

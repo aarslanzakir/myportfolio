@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# contact-form enquiries: real people's messages, keep them out of git
+/data/enquiries.json
