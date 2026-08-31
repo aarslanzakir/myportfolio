@@ -17,11 +17,17 @@ export const profile = {
   whatsapp: "923004449205",
   location: "Pakistan · Working with clients worldwide",
   timezone: "PKT (UTC+5)",
-  /** Optional: leave a value as "" to hide that social link */
+  /**
+   * Optional: leave a value as "" to hide that social link.
+   *
+   * These also become `sameAs` in the Person schema, which is how Google
+   * confirms this profile belongs to a real person, so use the canonical
+   * profile URL with no tracking parameters on it.
+   */
   socials: {
-    github: "",
+    github: "https://github.com/aarslanzakir",
     linkedin: "",
-    upwork: "",
+    upwork: "https://www.upwork.com/freelancers/~012c165f44a345b11e",
   },
 };
 

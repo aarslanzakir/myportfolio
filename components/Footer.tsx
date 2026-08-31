@@ -2,6 +2,13 @@ import Link from "next/link";
 import Icon from "./Icon";
 import { navLinks, profile, whatsappUrl } from "@/lib/content";
 
+/** Keys of profile.socials -> the label read out to screen readers. */
+const SOCIAL_LABELS: Record<string, string> = {
+  github: "GitHub",
+  linkedin: "LinkedIn",
+  upwork: "Upwork",
+};
+
 export default function Footer() {
   const socials = Object.entries(profile.socials).filter(([, url]) => url);
 
@@ -71,11 +78,13 @@ export default function Footer() {
                   <a
                     href={url}
                     target="_blank"
-                    rel="noopener noreferrer"
-                    className="grid size-9 place-items-center rounded-xl border border-white/[0.09] bg-white/[0.04] text-xs font-medium text-mist-400 capitalize transition-colors hover:border-white/20 hover:text-white"
-                    aria-label={name}
+                    /* me: tells crawlers this profile is the same person
+                       as the site owner, matching the sameAs in JSON-LD. */
+                    rel="me noopener noreferrer"
+                    className="grid size-9 place-items-center rounded-xl border border-white/[0.09] bg-white/[0.04] text-mist-400 transition-colors hover:border-white/20 hover:text-white"
+                    aria-label={SOCIAL_LABELS[name] ?? name}
                   >
-                    {name.slice(0, 2)}
+                    <Icon name={name} className="size-4" />
                   </a>
                 </li>
               ))}
