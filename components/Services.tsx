@@ -7,7 +7,7 @@ export default function Services() {
   return (
     <Section id="services">
       <SectionHeading
-          sectionId="services"
+        sectionId="services"
         eyebrow="What I do"
         title="Services built around"
         highlight="shipping, not slideshows"

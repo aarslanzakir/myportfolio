@@ -13,8 +13,9 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
     sitemap: `${siteUrl}/sitemap.xml`,
-    /* Declares the canonical host, so a staging or www duplicate
-       doesn't compete with the real domain. */
+    /* Only Yandex acts on `Host:`. Google and Bing pick the canonical
+       host from the <link rel="canonical"> tag and your redirects, so
+       still point www at the apex domain at the DNS/host level. */
     host: siteUrl,
   };
 }

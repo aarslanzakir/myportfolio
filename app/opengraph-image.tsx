@@ -1,10 +1,11 @@
 import { ImageResponse } from "next/og";
 import { profile } from "@/lib/content";
+import { siteTitle } from "@/lib/seo";
 
 /** Rendered at build time: this is the preview card on WhatsApp, LinkedIn, X, etc. */
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = `${profile.name} | Full-Stack Developer & AI Automation Engineer`;
+export const alt = siteTitle;
 
 export default async function Image() {
   const initials = profile.name

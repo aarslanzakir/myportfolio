@@ -12,7 +12,7 @@ export default function Skills() {
       />
 
       <SectionHeading
-          sectionId="skills"
+        sectionId="skills"
         eyebrow="Toolkit"
         title="Eight years of stack, kept"
         highlight="current on purpose"
