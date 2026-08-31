@@ -6,7 +6,12 @@
  * doesn't look like that. Same id always yields the same artwork, so
  * covers stay stable across deploys.
  *
- * Pure SVG, rendered on the server. No image request, no client JS.
+ * Used as a full-card background texture, so it is decorative and hidden
+ * from assistive tech. Pure SVG rendered on the server: no image request,
+ * no client JS.
+ *
+ * The 4:3 viewBox is close to the card's own aspect ratio, so `slice`
+ * crops very little at either end of the responsive range.
  */
 
 function hash(input: string): number {
@@ -38,7 +43,7 @@ export default function ProjectCover({
   const h = hash(id);
   const [from, to] = PALETTES[h % PALETTES.length];
   const variant = Math.floor(h / 7) % 4;
-  const rotate = (h % 40) - 20;
+  const rotate = (h % 30) - 15;
   const gid = `cov-${id.replace(/[^a-z0-9]/gi, "")}`;
 
   const initials = title
@@ -50,88 +55,85 @@ export default function ProjectCover({
 
   return (
     <svg
-      viewBox="0 0 400 160"
+      viewBox="0 0 400 300"
       preserveAspectRatio="xMidYMid slice"
-      role="img"
-      aria-label={`Abstract cover artwork for ${title}`}
+      aria-hidden="true"
+      focusable="false"
       className={className}
     >
       <defs>
         <linearGradient id={`${gid}-g`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor={from} stopOpacity="0.85" />
-          <stop offset="100%" stopColor={to} stopOpacity="0.55" />
+          <stop offset="0%" stopColor={from} stopOpacity="0.9" />
+          <stop offset="100%" stopColor={to} stopOpacity="0.35" />
         </linearGradient>
-        <radialGradient id={`${gid}-r`} cx="78%" cy="18%" r="72%">
-          <stop offset="0%" stopColor={from} stopOpacity="0.5" />
+        <radialGradient id={`${gid}-r`} cx="80%" cy="12%" r="85%">
+          <stop offset="0%" stopColor={from} stopOpacity="0.42" />
           <stop offset="100%" stopColor={from} stopOpacity="0" />
         </radialGradient>
-        <clipPath id={`${gid}-c`}>
-          <rect width="400" height="160" />
-        </clipPath>
       </defs>
 
-      <g clipPath={`url(#${gid}-c)`}>
-        <rect width="400" height="160" fill="#0d0f14" />
-        <rect width="400" height="160" fill={`url(#${gid}-r)`} />
+      <rect width="400" height="300" fill="#0d0f14" />
+      <rect width="400" height="300" fill={`url(#${gid}-r)`} />
 
-        <g
-          transform={`rotate(${rotate} 200 80)`}
-          stroke={`url(#${gid}-g)`}
-          fill="none"
-          strokeWidth="1.5"
-        >
-          {variant === 0 &&
-            Array.from({ length: 9 }, (_, i) => (
-              <circle key={i} cx="300" cy="40" r={22 + i * 26} opacity={0.55 - i * 0.05} />
-            ))}
+      {/* monogram sits behind the pattern, low contrast so it reads as
+          texture rather than as a logo the client didn't approve */}
+      <text
+        x="196"
+        y="250"
+        textAnchor="middle"
+        fontSize="210"
+        fontWeight="800"
+        fill={from}
+        fillOpacity="0.07"
+        fontFamily="var(--font-display), sans-serif"
+      >
+        {initials}
+      </text>
 
-          {variant === 1 &&
-            Array.from({ length: 14 }, (_, i) => (
-              <line
-                key={i}
-                x1={-40 + i * 36}
-                y1="-40"
-                x2={40 + i * 36}
-                y2="200"
-                opacity={0.5 - i * 0.025}
-              />
-            ))}
+      <g
+        transform={`rotate(${rotate} 200 150)`}
+        stroke={`url(#${gid}-g)`}
+        fill="none"
+        strokeWidth="1.5"
+      >
+        {variant === 0 &&
+          Array.from({ length: 12 }, (_, i) => (
+            <circle key={i} cx="330" cy="40" r={30 + i * 42} opacity={0.6 - i * 0.045} />
+          ))}
 
-          {variant === 2 &&
-            Array.from({ length: 7 }, (_, i) => (
-              <rect
-                key={i}
-                x={40 + i * 46}
-                y={20 + (i % 3) * 22}
-                width="34"
-                height={100 - (i % 3) * 24}
-                rx="6"
-                opacity={0.5 - i * 0.05}
-              />
-            ))}
+        {variant === 1 &&
+          Array.from({ length: 18 }, (_, i) => (
+            <line
+              key={i}
+              x1={-120 + i * 40}
+              y1="-40"
+              x2={120 + i * 40}
+              y2="340"
+              opacity={0.55 - i * 0.026}
+            />
+          ))}
 
-          {variant === 3 &&
-            Array.from({ length: 6 }, (_, i) => (
-              <path
-                key={i}
-                d={`M -20 ${140 - i * 20} Q 120 ${60 - i * 18} 200 ${90 - i * 16} T 420 ${40 - i * 14}`}
-                opacity={0.55 - i * 0.07}
-              />
-            ))}
-        </g>
+        {variant === 2 &&
+          Array.from({ length: 9 }, (_, i) => (
+            <rect
+              key={i}
+              x={-10 + i * 50}
+              y={30 + (i % 3) * 40}
+              width="38"
+              height={230 - (i % 3) * 50}
+              rx="8"
+              opacity={0.5 - i * 0.04}
+            />
+          ))}
 
-        {/* monogram, kept low-contrast so it reads as texture not a logo */}
-        <text
-          x="28"
-          y="132"
-          fontSize="64"
-          fontWeight="700"
-          fill={from}
-          fillOpacity="0.14"
-          fontFamily="var(--font-display), sans-serif"
-        >
-          {initials}
-        </text>
+        {variant === 3 &&
+          Array.from({ length: 9 }, (_, i) => (
+            <path
+              key={i}
+              d={`M -30 ${290 - i * 34} Q 120 ${170 - i * 30} 200 ${210 - i * 28} T 430 ${120 - i * 24}`}
+              opacity={0.6 - i * 0.055}
+            />
+          ))}
       </g>
     </svg>
   );

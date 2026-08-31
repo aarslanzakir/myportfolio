@@ -13,19 +13,24 @@ function SpotlightCard({ project }: { project: Project }) {
 
   const body = (
     <article className="group ring-gradient relative flex h-full flex-col overflow-hidden rounded-3xl">
-      <span className="ring-gradient-inner" />
-
-      {/* generated cover: abstract on purpose, never a fake screenshot */}
-      <div className="relative h-28 overflow-hidden sm:h-36">
+      {/* Generated cover art fills the whole card. Abstract on purpose:
+          never a fake screenshot. It sits before the ring so the gradient
+          border still paints on top of it. */}
+      <div aria-hidden="true" className="absolute inset-0 overflow-hidden rounded-3xl">
         <ProjectCover
           id={project.id}
           title={project.title}
-          className="size-full transition-transform duration-700 group-hover:scale-105"
+          className="size-full transition-transform duration-[900ms] group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/40 to-transparent" />
+        {/* Full-card scrim: heaviest at the bottom where the copy sits,
+            lightest at the top so the artwork still reads. */}
+        <div className="absolute inset-0 bg-gradient-to-t from-ink-950 from-30% via-ink-950/92 to-ink-950/60" />
+        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.07] via-transparent to-transparent" />
       </div>
 
-      <div className="relative -mt-6 flex h-full flex-col bg-gradient-to-br from-white/[0.08] via-white/[0.03] to-transparent p-7 transition-transform duration-300 group-hover:-translate-y-1 sm:p-9">
+      <span className="ring-gradient-inner" />
+
+      <div className="relative flex h-full flex-col p-7 transition-transform duration-300 group-hover:-translate-y-1 sm:p-9">
         <span
           aria-hidden="true"
           className="pointer-events-none absolute -top-28 -right-28 size-72 rounded-full bg-accent-400/25 opacity-60 blur-3xl transition-opacity duration-500 group-hover:opacity-100"
