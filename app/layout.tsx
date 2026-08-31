@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono, Manrope } from "next/font/google";
-import { profile, services } from "@/lib/content";
+import { profile } from "@/lib/content";
+import { siteDescription, siteTitle, siteUrl } from "@/lib/seo";
 import "./globals.css";
 
 /**
@@ -37,19 +38,13 @@ const fontMono = JetBrains_Mono({
   weight: ["400", "500"],
 });
 
-/** Set NEXT_PUBLIC_SITE_URL in your host's env once you have a domain. */
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://aliarslanzakir.com";
-
-const title = `${profile.name} | Full-Stack Developer & AI Automation Engineer`;
-const description = `${profile.yearsExperience}+ years building MERN, MEAN and Laravel web apps, mobile apps, Python back-ends, blockchain platforms and AI automation. Hourly, weekly or fixed price. Available for new client projects.`;
-
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: title,
+    default: siteTitle,
     template: `%s | ${profile.name}`,
   },
-  description,
+  description: siteDescription,
   applicationName: `${profile.name} Portfolio`,
   authors: [{ name: profile.name }],
   creator: profile.name,
@@ -67,26 +62,44 @@ export const metadata: Metadata = {
     "hire full stack developer",
     profile.name,
   ],
+  publisher: profile.name,
   alternates: { canonical: "/" },
+  /* Stops iOS Safari auto-linking the phone number in body copy and
+     rewriting it into markup Google then reads as a separate entity. */
+  formatDetection: { telephone: false, email: false, address: false },
   openGraph: {
     type: "website",
     url: siteUrl,
     siteName: profile.name,
-    title,
-    description,
+    title: siteTitle,
+    description: siteDescription,
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title,
-    description,
+    title: siteTitle,
+    description: siteDescription,
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
+  manifest: "/manifest.webmanifest",
   category: "technology",
+  /* Paste the token from Search Console / Bing Webmaster Tools here
+     (or set the env var) to verify ownership without a DNS record. */
+  verification: {
+    ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION && {
+      google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+    }),
+  },
 };
 
 export const viewport: Viewport = {
@@ -94,40 +107,6 @@ export const viewport: Viewport = {
   colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
-};
-
-/** Person + Service schema: helps Google show this as a freelancer profile. */
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: profile.name,
-  jobTitle: "Full-Stack Developer & AI Automation Engineer",
-  description,
-  email: `mailto:${profile.email}`,
-  telephone: profile.phone,
-  url: siteUrl,
-  knowsAbout: [
-    "MERN Stack",
-    "MEAN Stack",
-    "React",
-    "Next.js",
-    "Node.js",
-    "Angular",
-    "Python",
-    "Django",
-    "FastAPI",
-    "React Native",
-    "AI Automation",
-    "Large Language Models",
-    "MongoDB",
-    "PostgreSQL",
-    "AWS",
-    "Docker",
-  ],
-  makesOffer: services.map((s) => ({
-    "@type": "Offer",
-    itemOffered: { "@type": "Service", name: s.title, description: s.blurb },
-  })),
 };
 
 export default function RootLayout({
@@ -143,10 +122,6 @@ export default function RootLayout({
         <noscript>
           <style>{`[data-reveal]{opacity:1 !important;transform:none !important}`}</style>
         </noscript>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
       </head>
       {/* Public chrome (nav + footer) is added by app/(site)/layout.tsx so
           that /admin can render its own full-width shell instead. */}

@@ -9,6 +9,7 @@ export default function WhyMe() {
       <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
         <div className="lg:sticky lg:top-28 lg:self-start">
           <SectionHeading
+          sectionId="why"
             eyebrow="Why me"
             title="What you get that an agency"
             highlight="usually charges triple for"

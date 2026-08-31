@@ -43,6 +43,7 @@ export default function Contact() {
       />
 
       <SectionHeading
+        sectionId="contact"
         eyebrow="Get in touch"
         title="Tell me what you're building and"
         highlight="I'll tell you what it takes"

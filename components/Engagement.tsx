@@ -12,6 +12,7 @@ export default function Engagement() {
       />
 
       <SectionHeading
+        sectionId="pricing"
         eyebrow="Ways to work together"
         title="Hourly, weekly or fixed price,"
         highlight="whichever fits the scope"

@@ -68,12 +68,16 @@ export function GhostButton({
    ------------------------------------------------------------------ */
 
 export function SectionHeading({
+  sectionId,
   eyebrow,
   title,
   highlight,
   blurb,
   align = "center",
 }: {
+  /** Id of the wrapping <Section>. Wires up its aria-labelledby, so the
+      heading actually names the landmark instead of leaving it anonymous. */
+  sectionId?: string;
   eyebrow: string;
   title: string;
   /** Rendered in gradient right after `title` */
@@ -91,7 +95,10 @@ export function SectionHeading({
         {eyebrow}
       </span>
 
-      <h2 className="text-balance text-3xl leading-[1.15] font-semibold tracking-tight text-mist-50 sm:text-4xl md:text-[2.75rem]">
+      <h2
+        id={sectionId ? `${sectionId}-heading` : undefined}
+        className="text-balance text-3xl leading-[1.15] font-semibold tracking-tight text-mist-50 sm:text-4xl md:text-[2.75rem]"
+      >
         {title}
         {highlight && <> <span className="text-gradient">{highlight}</span></>}
       </h2>
@@ -118,7 +125,8 @@ export function Section({
   return (
     <section
       id={id}
-      className={`relative px-5 py-20 sm:px-8 sm:py-28 lg:px-12 xl:px-16 ${className}`}
+      aria-labelledby={id ? `${id}-heading` : undefined}
+      className={`relative px-5 py-14 sm:px-8 sm:py-18 lg:px-12 lg:py-20 xl:px-16 ${className}`}
     >
       <div className="mx-auto w-full max-w-shell">{children}</div>
     </section>

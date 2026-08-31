@@ -1,13 +1,23 @@
 import type { MetadataRoute } from "next";
+import { siteUrl } from "@/lib/seo";
+import { readStore } from "@/lib/store";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://aliarslanzakir.com";
+/**
+ * One-page site, so one URL. The section anchors (#services, #work…)
+ * are deliberately not listed: they are fragments of this page, not
+ * separate documents, and Google ignores them in a sitemap.
+ *
+ * `lastModified` tracks the project store, so publishing work from the
+ * admin panel gives crawlers a real signal that the page changed.
+ */
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const { updatedAt } = await readStore();
 
-export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: siteUrl,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
+      lastModified: new Date(updatedAt),
+      changeFrequency: "weekly",
       priority: 1,
     },
   ];

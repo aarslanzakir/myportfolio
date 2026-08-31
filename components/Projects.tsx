@@ -92,6 +92,7 @@ export default async function Projects() {
     <Section id="work">
       <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
         <SectionHeading
+          sectionId="work"
           eyebrow="Selected work"
           title={`${projects.length} projects shipped,`}
           highlight="here's the range"

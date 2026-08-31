@@ -92,8 +92,9 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    /* offset for the sticky header when jumping to an anchor */
-    scroll-padding-top: 5.5rem;
+    /* Only needs to clear the nav. The section's own top padding supplies
+       the rest of the breathing room, so this must not repeat it. */
+    scroll-padding-top: 2rem;
     -webkit-tap-highlight-color: transparent;
   }
 

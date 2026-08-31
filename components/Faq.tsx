@@ -11,6 +11,7 @@ export default function Faq() {
   return (
     <Section id="faq">
       <SectionHeading
+        sectionId="faq"
         eyebrow="Before you ask"
         title="The questions clients"
         highlight="always start with"

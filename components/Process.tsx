@@ -6,6 +6,7 @@ export default function Process() {
   return (
     <Section id="process">
       <SectionHeading
+        sectionId="process"
         eyebrow="How we'd work"
         title="A process designed to remove"
         highlight="your risk"
