@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Icon from "./Icon";
+import ProjectCover from "./ProjectCover";
 import Spotlight from "./Spotlight";
 import type { Project } from "@/lib/project-schema";
 
@@ -78,7 +79,20 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
           const clickable = Boolean(project.link) && !project.privateDemo;
 
           const body = (
-            <article className="spotlight-target group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.025] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-white/[0.16]">
+            <article className="spotlight-target group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/[0.07] transition-all duration-300 hover:-translate-y-1 hover:border-white/[0.16]">
+              {/* Generated art fills the tile, same treatment as the
+                  spotlight cards so the grid reads as one system. */}
+              <div aria-hidden="true" className="absolute inset-0 overflow-hidden rounded-2xl">
+                <ProjectCover
+                  id={project.id}
+                  title={project.title}
+                  variant="compact"
+                  className="size-full transition-transform duration-[900ms] group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink-950 from-18% via-ink-950/72 to-ink-950/32" />
+              </div>
+
+              <div className="relative flex h-full flex-col p-5">
               <span
                 aria-hidden="true"
                 className="pointer-events-none absolute -top-20 -right-20 size-44 rounded-full bg-accent-400/25 opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100"
@@ -130,7 +144,8 @@ export default function ProjectGallery({ projects }: { projects: Project[] }) {
                     <Icon name="shield" className="size-3.5" />
                     Demo access on request
                   </p>
-                )}
+                  )}
+                </div>
               </div>
             </article>
           );

@@ -24,7 +24,7 @@ function SpotlightCard({ project }: { project: Project }) {
         />
         {/* Full-card scrim: heaviest at the bottom where the copy sits,
             lightest at the top so the artwork still reads. */}
-        <div className="absolute inset-0 bg-gradient-to-t from-ink-950 from-30% via-ink-950/92 to-ink-950/60" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink-950 from-12% via-ink-950/62 to-ink-950/22" />
         <div className="absolute inset-0 bg-gradient-to-br from-white/[0.07] via-transparent to-transparent" />
       </div>
 

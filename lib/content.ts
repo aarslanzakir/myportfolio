@@ -254,6 +254,7 @@ export const reasons = [
  * links that point at a section of the home page.
  */
 export const navLinks = [
+  { label: "About", href: "/about", section: "about" },
   { label: "Services", href: "/services", section: "services" },
   { label: "Work", href: "/#work", section: "work" },
   { label: "Skills", href: "/#skills", section: "skills" },

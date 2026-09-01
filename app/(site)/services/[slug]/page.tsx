@@ -5,11 +5,13 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import Icon from "@/components/Icon";
 import Reveal from "@/components/Reveal";
 import { GhostButton, PrimaryButton, Section } from "@/components/ui";
+import { caseStudiesForService } from "@/lib/case-studies";
 import { profile, whatsappUrl } from "@/lib/content";
 import { services, serviceBySlug } from "@/lib/services";
 import {
   abs,
   buildServiceJsonLd,
+  caseStudyPath,
   serializeJsonLd,
   servicePath,
 } from "@/lib/seo";
@@ -57,6 +59,9 @@ export default async function ServicePage({ params }: Props) {
     .slice(0, 6);
 
   const others = services.filter((s) => s.slug !== service.slug);
+
+  /* Long-form proof for this service. Empty until case studies exist. */
+  const studies = caseStudiesForService(service.slug);
 
   return (
     <main id="main">
@@ -253,6 +258,44 @@ export default async function ServicePage({ params }: Props) {
           ))}
         </div>
       </Section>
+
+      {/* ---------------- case studies ----------------
+          A card proves the work happened; a case study proves you can
+          think. Where one exists for this service, it outranks the
+          project grid as the thing to send a prospect. */}
+      {studies.length > 0 && (
+        <Section id="case-studies">
+          <Reveal>
+            <h2
+              id="case-studies-heading"
+              className="text-balance text-3xl leading-[1.15] font-semibold tracking-tight text-mist-50 sm:text-4xl"
+            >
+              Read the <span className="text-gradient">full story</span>
+            </h2>
+          </Reveal>
+
+          <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {studies.map((study, i) => (
+              <Reveal as="li" key={study.slug} delay={i * 60}>
+                <Link
+                  href={caseStudyPath(study.slug)}
+                  className="group flex h-full flex-col rounded-2xl border border-white/[0.07] bg-white/[0.025] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-white/[0.16]"
+                >
+                  <span className="text-xs font-medium tracking-wide text-accent-300 uppercase">
+                    {study.client}
+                  </span>
+                  <span className="mt-3 block text-base font-semibold text-mist-50">
+                    {study.title}
+                  </span>
+                  <span className="mt-2 block text-sm leading-relaxed text-mist-400">
+                    {study.metaDescription}
+                  </span>
+                </Link>
+              </Reveal>
+            ))}
+          </ul>
+        </Section>
+      )}
 
       {/* ---------------- sideways links ----------------
           Every service page links to the other five. This is what turns
