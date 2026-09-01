@@ -115,6 +115,28 @@
   }
 }
 
+@keyframes menu-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes menu-item-in {
+  from {
+    opacity: 0;
+    transform: translateX(-14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* ------------------------------------------------------------------
    Base
    ------------------------------------------------------------------ */
@@ -264,7 +286,9 @@
   .animate-shimmer,
   .estimator-in,
   .estimator-bar,
-  .sheen::after {
+  .sheen::after,
+  .menu-panel,
+  .menu-item {
     animation: none !important;
   }
 
@@ -343,4 +367,77 @@
 .sheen:hover::after {
   opacity: 1;
   animation: sheen 0.85s ease-out;
+}
+
+/* ------------------------------------------------------------------
+   Mobile menu sheet
+   ------------------------------------------------------------------ */
+.menu-panel {
+  animation: menu-panel-in 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.menu-item {
+  animation: menu-item-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+/* ------------------------------------------------------------------
+   Premium surface treatment
+   ------------------------------------------------------------------ */
+
+/* Film grain over the whole page. Fixed, so it never scrolls with the
+   content and reads as a property of the screen rather than the layout.
+   Kept very low opacity: it should be felt, not seen. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.032;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Top-edge highlight: the single cheapest way to make a flat dark card
+   look lit rather than painted. */
+@utility lit-edge {
+  position: relative;
+}
+@utility lit-edge-inner {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(255 255 255 / 0.22) 30%,
+    rgb(255 255 255 / 0.22) 70%,
+    transparent
+  );
+  pointer-events: none;
+}
+
+/* Aurora bloom behind the hero copy */
+@utility aurora {
+  background-image:
+    radial-gradient(
+      42rem 26rem at 12% 18%,
+      color-mix(in oklab, var(--color-accent-400) 16%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      34rem 22rem at 4% 62%,
+      color-mix(in oklab, var(--color-ember-400) 12%, transparent),
+      transparent 70%
+    );
+}
+
+/* Vignette that pulls the eye toward the centre of the hero */
+@utility vignette {
+  background-image: radial-gradient(
+    120% 90% at 50% 40%,
+    transparent 45%,
+    rgb(0 0 0 / 0.55) 100%
+  );
 }

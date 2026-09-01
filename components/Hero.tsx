@@ -27,7 +27,7 @@ export default async function Hero() {
           priority
           sizes="100vw"
           placeholder="blur"
-          quality={90}
+          quality={95}
           className="object-cover object-[78%_center]"
         />
 
@@ -35,12 +35,25 @@ export default async function Hero() {
             subject on the right. */}
         <div className="absolute inset-0 bg-gradient-to-r from-ink-950 from-15% via-ink-950/85 via-45% to-transparent to-75%" />
         <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-transparent to-ink-950/70" />
+
+        {/* Warm bloom on the copy side, and a vignette to pull the eye in */}
+        <div className="aurora absolute inset-0" />
+        <div className="vignette absolute inset-0" />
+
+        {/* Gold rim light down the seam where the scrim meets the photo */}
+        <div className="absolute inset-y-0 left-[62%] w-px bg-gradient-to-b from-transparent via-accent-400/25 to-transparent" />
       </div>
 
-      <div className="mx-auto w-full max-w-shell px-5 pt-28 sm:px-8 sm:pt-32 lg:min-h-[42rem] lg:px-12 lg:pt-40 xl:min-h-[47rem] xl:px-16 2xl:min-h-[52rem]">
-        <div className="flex flex-col items-start lg:max-w-[54%]">
+      {/* Mobile keeps the bloom without the photo behind the text */}
+      <div
+        aria-hidden="true"
+        className="aurora absolute inset-x-0 top-0 -z-10 h-[34rem] lg:hidden"
+      />
+
+      <div className="mx-auto w-full max-w-shell px-5 pt-28 sm:px-8 sm:pt-32 lg:min-h-[44rem] lg:px-12 lg:pt-40 xl:min-h-[49rem] xl:px-16 2xl:min-h-[54rem]">
+        <div className="flex flex-col items-start lg:max-w-[56%]">
           <Reveal>
-            <span className="inline-flex items-center gap-2.5 rounded-full border border-white/12 bg-ink-950/60 py-2 pr-4 pl-2.5 text-xs font-medium text-mist-200 backdrop-blur-sm sm:text-sm">
+            <span className="inline-flex items-center gap-2.5 rounded-full border border-accent-400/25 bg-ink-950/70 py-2 pr-4 pl-2.5 text-xs font-medium text-mist-200 shadow-[0_8px_30px_-12px_rgba(240,180,41,0.5)] backdrop-blur-md sm:text-sm">
               <span className="relative grid size-4 place-items-center">
                 <span className="animate-pulse-ring absolute size-2 rounded-full bg-emerald-400" />
                 <span className="size-2 rounded-full bg-emerald-400" />
@@ -50,7 +63,7 @@ export default async function Hero() {
           </Reveal>
 
           <Reveal delay={80}>
-            <h1 className="mt-6 text-[2.15rem] leading-[1.08] font-semibold tracking-tight text-mist-50 sm:text-5xl lg:text-[3.5rem] xl:text-[3.9rem]">
+            <h1 className="mt-7 text-[2.4rem] leading-[1.04] font-bold tracking-tight text-mist-50 sm:text-[3.4rem] lg:text-[3.9rem] xl:text-[4.4rem]">
               {hero.headlinePre} <RotatingWord words={hero.headlineRotating} />
               <br className="hidden sm:block" /> {hero.headlinePost}
             </h1>
@@ -67,8 +80,8 @@ export default async function Hero() {
               <PrimaryButton href={whatsappUrl} external icon="whatsapp">
                 Start a project
               </PrimaryButton>
-              <GhostButton href="#work" icon="layers">
-                See what I build
+              <GhostButton href="/#estimate" icon="sparkles">
+                Get an instant estimate
               </GhostButton>
             </div>
           </Reveal>
@@ -93,35 +106,46 @@ export default async function Hero() {
             face and nothing important gets cropped on a narrow screen.
            ---------------------------------------------------------- */}
         <Reveal delay={200} className="mt-12 lg:hidden">
-          <div className="relative overflow-hidden rounded-3xl border border-white/[0.09]">
-            <Image
-              src={heroPhoto}
-              alt={`${profile.name}, ${profile.role}`}
-              sizes="100vw"
-              priority
-              placeholder="blur"
-              className="h-auto w-full object-cover"
-            />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink-950 via-ink-950/40 to-transparent p-5 pt-16">
-              <p className="text-base font-semibold text-mist-50">{profile.name}</p>
-              <p className="mt-0.5 text-sm text-mist-400">{profile.role}</p>
+          <div className="ring-gradient relative rounded-3xl">
+            <span className="ring-gradient-inner" />
+            <div className="relative overflow-hidden rounded-3xl">
+              <Image
+                src={heroPhoto}
+                alt={`${profile.name}, ${profile.role}`}
+                sizes="100vw"
+                priority
+                placeholder="blur"
+                quality={90}
+                className="h-auto w-full object-cover"
+              />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink-950 via-ink-950/50 to-transparent p-5 pt-20">
+                <p className="text-base font-semibold text-mist-50">{profile.name}</p>
+                <p className="mt-0.5 text-sm text-mist-400">{profile.role}</p>
+              </div>
             </div>
           </div>
         </Reveal>
       </div>
 
       {/* ---------- credibility band ---------- */}
-      <div className="relative mt-14 border-t border-white/[0.07] bg-ink-950/70 backdrop-blur-sm sm:mt-20 lg:mt-24">
+      <div className="lit-edge relative mt-14 border-t border-white/[0.07] bg-ink-950/70 backdrop-blur-sm sm:mt-20 lg:mt-24">
+        <span className="lit-edge-inner" />
         <dl className="mx-auto grid w-full max-w-shell grid-cols-2 px-5 sm:px-8 lg:grid-cols-4 lg:px-12 xl:px-16">
           {stats.map((stat, i) => (
-            <Reveal key={stat.label} delay={i * 70} className="py-6 lg:py-8">
+            <Reveal
+              key={stat.label}
+              delay={i * 70}
+              className={`group py-6 lg:py-8 ${
+                i > 0 ? "lg:border-l lg:border-white/[0.06] lg:pl-8" : ""
+              }`}
+            >
               {/* dt before dd keeps the list semantics valid; `order`
                   puts the number above the label visually. */}
               <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-                <dt className="order-2 mt-1.5 text-xs leading-snug text-mist-500 sm:text-sm">
+                <dt className="order-2 mt-1.5 text-xs leading-snug text-mist-500 transition-colors duration-300 group-hover:text-mist-400 sm:text-sm">
                   {stat.label}
                 </dt>
-                <dd className="text-gradient order-1 font-display text-3xl font-bold sm:text-4xl">
+                <dd className="text-gradient order-1 font-display text-4xl font-bold sm:text-5xl">
                   <CountUp value={stat.value} />
                 </dd>
               </div>
