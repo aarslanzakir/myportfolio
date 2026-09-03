@@ -34,6 +34,8 @@ type Status =
   | { kind: "sending" }
   | { kind: "sent" }
   | { kind: "whatsapp" }
+  /** Popup blocked: we still hold a WhatsApp link for the visitor to click */
+  | { kind: "blocked"; url: string; stored: boolean }
   | { kind: "error"; message: string };
 
 /**
@@ -74,62 +76,90 @@ export default function ContactForm() {
       .filter(Boolean)
       .join("\n");
 
-  const openWhatsapp = (f: Fields) => {
-    window.open(
-      `https://wa.me/${profile.whatsapp}?text=${encodeURIComponent(buildBody(f))}`,
-      "_blank",
-      "noopener,noreferrer",
-    );
+  const whatsappUrlFor = (f: Fields) =>
+    `https://wa.me/${profile.whatsapp}?text=${encodeURIComponent(buildBody(f))}`;
+
+  /**
+   * Popup blockers only allow window.open during a user gesture, and the
+   * gesture is gone by the time `await fetch` resolves. So the tab is
+   * opened blank while the click is still live and pointed at WhatsApp
+   * afterwards. `noopener` can't be passed here or we'd get no handle
+   * back, so the reference is severed manually instead.
+   */
+  const openBlankTab = () => {
+    const tab = window.open("", "_blank");
+    if (tab) tab.opener = null;
+    return tab;
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (status.kind === "sending") return;
+  const sendToTab = (tab: Window | null, f: Fields) => {
+    const url = whatsappUrlFor(f);
+    if (tab && !tab.closed) {
+      tab.location.replace(url);
+      return true;
+    }
+    return false;
+  };
 
-    const form = e.currentTarget;
-    const fields = buildFields(form);
-    setStatus({ kind: "sending" });
-
+  /** Stores the enquiry. Returns an error message, or null on success. */
+  const store = async (fields: Fields): Promise<string | null> => {
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(fields),
       });
+      if (response.ok) return null;
+
       const result = (await response.json().catch(() => ({}))) as {
         error?: string;
-        code?: string;
       };
-
-      if (response.ok) {
-        form.reset();
-        setStatus({ kind: "sent" });
-        return;
-      }
-
-      // Storage unavailable: hand off to WhatsApp rather than dead-ending
-      if (result.code === "store_failed") {
-        openWhatsapp(fields);
-        setStatus({ kind: "whatsapp" });
-        return;
-      }
-
-      setStatus({ kind: "error", message: result.error || "Something went wrong." });
+      return result.error || "Could not save your message.";
     } catch {
-      openWhatsapp(fields);
-      setStatus({ kind: "whatsapp" });
+      return "Could not reach the server.";
     }
+  };
+
+  /**
+   * Both buttons run this: the enquiry is always recorded for the admin
+   * panel AND handed to WhatsApp, so a message is never in only one place.
+   * Storage failing does not block the WhatsApp handoff, which is the part
+   * that still works when the server does not.
+   */
+  const submit = async (form: HTMLFormElement) => {
+    if (status.kind === "sending") return;
+    if (!form.reportValidity()) return;
+
+    const fields = buildFields(form);
+    const tab = openBlankTab();
+    setStatus({ kind: "sending" });
+
+    const error = await store(fields);
+    const opened = sendToTab(tab, fields);
+
+    if (!opened) {
+      // Tab was blocked: hand over a link the visitor can click themselves
+      // rather than losing the WhatsApp copy entirely.
+      setStatus({
+        kind: "blocked",
+        url: whatsappUrlFor(fields),
+        stored: error === null,
+      });
+      return;
+    }
+
+    if (error === null) form.reset();
+    setStatus(error === null ? { kind: "sent" } : { kind: "whatsapp" });
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    void submit(e.currentTarget);
   };
 
   const handleWhatsapp = (e: React.MouseEvent<HTMLButtonElement>) => {
     const form = e.currentTarget.form;
-    if (!form) return;
-
-    // Require the same fields the send path does before switching channel
-    if (!form.reportValidity()) return;
-
-    openWhatsapp(buildFields(form));
-    setStatus({ kind: "whatsapp" });
+    if (form) void submit(form);
   };
 
   const sending = status.kind === "sending";
@@ -266,11 +296,28 @@ export default function ContactForm() {
         }`}
       >
         {status.kind === "idle" &&
-          "Goes straight to my desk. I usually reply within a few hours."}
+          "Goes straight to my desk and my WhatsApp. I usually reply within a few hours."}
         {status.kind === "sending" && "Sending your message…"}
         {status.kind === "sent" &&
-          "Thanks, I have your message. I'll reply to the email you gave me."}
-        {status.kind === "whatsapp" && "WhatsApp opened in a new tab with your message ready."}
+          "Thanks, I have your message. WhatsApp opened in a new tab too — hit send there and it reaches me instantly."}
+        {status.kind === "whatsapp" &&
+          "WhatsApp opened in a new tab with your message ready. Hit send there and I'll get it."}
+        {status.kind === "blocked" && (
+          <>
+            {status.stored
+              ? "Thanks, I have your message. "
+              : "Your browser blocked the pop-up. "}
+            <a
+              href={status.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-accent-300 underline underline-offset-2"
+            >
+              Open it in WhatsApp
+            </a>
+            {" to reach me instantly."}
+          </>
+        )}
         {status.kind === "error" && status.message}
       </p>
     </form>
