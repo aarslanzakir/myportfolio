@@ -26,7 +26,7 @@ export const profile = {
    */
   socials: {
     github: "https://github.com/aarslanzakir",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/in/aliarslanzakir",
     upwork: "https://www.upwork.com/freelancers/~012c165f44a345b11e",
   },
 };
