@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Inter, JetBrains_Mono, Manrope } from "next/font/google";
 import { profile } from "@/lib/content";
 import { siteDescription, siteTitle, siteUrl } from "@/lib/seo";
@@ -102,6 +103,13 @@ export const metadata: Metadata = {
   },
 };
 
+/**
+ * GA4 measurement ID. Analytics only loads when this is set, so local
+ * development and preview deploys stay out of your reporting unless you
+ * deliberately add the variable to those environments.
+ */
+const gaId = process.env.NEXT_PUBLIC_GA_ID;
+
 export const viewport: Viewport = {
   themeColor: "#05060a",
   colorScheme: "dark",
@@ -126,6 +134,10 @@ export default function RootLayout({
       {/* Public chrome (nav + footer) is added by app/(site)/layout.tsx so
           that /admin can render its own full-width shell instead. */}
       <body className="flex min-h-full flex-col">{children}</body>
+      {/* Loads gtag.js after hydration rather than blocking first paint,
+          and tracks App Router navigations, which a raw gtag snippet
+          would miss because there is no full page load between routes. */}
+      {gaId && <GoogleAnalytics gaId={gaId} />}
     </html>
   );
 }

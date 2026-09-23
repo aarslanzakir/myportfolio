@@ -15,7 +15,7 @@ export const profile = {
   phone: "+92 300 444 9205",
   /** Digits only, used to build the wa.me link */
   whatsapp: "923004449205",
-  location: "Pakistan · Working with clients worldwide",
+  location: "Lahore, Pakistan · Working with clients worldwide",
   timezone: "PKT (UTC+5)",
   /**
    * Optional: leave a value as "" to hide that social link.
@@ -42,7 +42,10 @@ export const mailtoUrl = `mailto:${profile.email}?subject=${encodeURIComponent(
 /* ------------------------------------------------------------------ */
 
 export const hero = {
-  eyebrow: "Available for new projects",
+  /* Sits above the H1. The headline sells the outcome, so the plain
+     role term ("full-stack web developer") lives here where it reads
+     naturally and still lands high on the page. */
+  eyebrow: "Full-Stack Web Developer · Available for new projects",
   headlinePre: "I build",
   /** Rotated word-by-word in the hero headline */
   headlineRotating: [

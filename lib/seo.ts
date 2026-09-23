@@ -86,8 +86,12 @@ export function buildJsonLd(projects: Project[]) {
     image: abs("/mine.png"),
     email: `mailto:${profile.email}`,
     telephone: profile.phone,
+    /* City-level, so the entity can match location-qualified searches
+       like "full stack developer Lahore" rather than only country ones. */
     address: {
       "@type": "PostalAddress",
+      addressLocality: "Lahore",
+      addressRegion: "Punjab",
       addressCountry: "PK",
     },
     knowsAbout,
